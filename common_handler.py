@@ -28,9 +28,17 @@ async def menu_actions(message: Message, state: FSMContext):
         await message.answer(text="<b>Задания ЕГЭ по математике.</b>\nНажмите ниже чтобы перейти на сайт", reply_markup= ege, parse_mode="html")
     elif message.text.lower() == "задания егэ по профильной математике.🤓":
         await message.answer(text="<b>Задания ЕГЭ по профильной математике.</b>\nНажмите ниже чтобы перейти на сайт", reply_markup= ege_prof, parse_mode="html")
+    elif message.text == "/about":
+        text = "Информация о боте"
+        await message.answer(text=text, reply_markup=link_keyboard)
+        await message.delete()
+    elif message.text == "/start":
+        await state.set_state(Form.wait)
+    elif message.text == "/menu":
+        await message.answer("Извините вы и так находитесь в меню")
     else:
         await state.set_state(Menu.point_2)
-        text = 'Нет такого врианта ответа'
+        text = 'Нет такого врианта ответа, если хотите увидеть весь список команд бота повторите свой запрос'
         await message.answer(text=text)
 
 @router.message(Menu.point_2)
@@ -44,7 +52,7 @@ async def help(message: Message, state: FSMContext):
 
 @router.message(Menu.point_3)
 async def help_actions(message: Message, state: FSMContext):
-    if message.text.lower() == "запустить бота заново▶️":
+    if message.text.lower() == "запустить бота заново▶️" or message.text == "/start":
         await state.set_state(Form.wait)
         text = "Привет! Перед началом необходимо заполнить небольшую анкету. Нажми на кнопку ниже, чтобы перейти к заполению"
         await message.answer(text=text, reply_markup=form_button)
@@ -57,14 +65,17 @@ async def help_actions(message: Message, state: FSMContext):
                            media="AgACAgIAAxkBAAICTWZtfoJP2uPl2Ip5SNPGx9MRiajeAAJ_4DEbkQABaEuTdrc85s60dAEAAwIAA3kAAzUE")
                        ]
         await message.answer_media_group(media=media_group)
-    elif message.text.lower() == "главное меню бота♾️":
+    elif message.text.lower() == "главное меню бота♾️" or message.text == "/menu":
         await state.set_state(Menu.point_1)
         await message.answer(text="<b>Меню:</b>\n\nЗадания ОГЭ по математике.📝"
                                   "\n\nЗадания ЕГЭ по математике.👨🏻‍🎓"
                                   "\n\nЗадания ЕГЭ по профильной математике.🤓", reply_markup=menu_points,
                              parse_mode="html")
-    elif message.text.lower() == "информация о боте❗":
+    elif message.text.lower() == "информация о боте❗" or message.text == "/about":
         await message.answer(text="информация о боте❗", reply_markup=link_keyboard)
+    else:
+        await message.answer(text="Извините я вас не понимаю выберите кнопку")
+
 
 
 
