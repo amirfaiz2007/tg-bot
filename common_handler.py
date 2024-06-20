@@ -1,5 +1,7 @@
 from aiogram.filters import Command
 from aiogram.types import Message, InputMediaPhoto
+
+from erg import get_photo
 from markup import menu_points, oge, ege, ege_prof, help_points, link_keyboard
 from aiogram import Router
 from aiogram.fsm.context import FSMContext
@@ -29,6 +31,8 @@ async def menu_actions(message: Message, state: FSMContext):
     elif message.text.lower() == "задания егэ по профильной математике.🤓":
         await message.answer(text="<b>Задания ЕГЭ по профильной математике.</b>\nНажмите ниже чтобы перейти на сайт", reply_markup= ege_prof, parse_mode="html")
     elif message.text == "/about":
+        photo = await get_photo('city')
+        await message.answer_photo(photo=photo)
         text = "Информация о боте"
         await message.answer(text=text, reply_markup=link_keyboard)
         await message.delete()
@@ -45,6 +49,8 @@ async def menu_actions(message: Message, state: FSMContext):
 async def help(message: Message, state: FSMContext):
     await state.set_state(Menu.point_3)
     text = "запустить бота▶️\nпоказать доступные команды🆘\nинформация о боте❗\nглавное меню бота♾️"
+    photo = await get_photo('lake')
+    await message.answer_photo(photo=photo)
     await message.answer(text=text, reply_markup=help_points, parse_mode="html")
     await message.delete()
 
