@@ -32,6 +32,7 @@ async def menu_actions(message: Message, state: FSMContext):
         await message.answer(text="<b>Задания ЕГЭ по профильной математике.</b>\nНажмите ниже чтобы перейти на сайт", reply_markup= ege_prof, parse_mode="html")
     elif message.text.lower() == "кубик рандома🎲":
         await  message.answer_dice()
+        await message.delete()
     elif message.text == "/about":
         photo = await get_photo('city')
         await message.answer_photo(photo=photo)
