@@ -19,7 +19,7 @@ async def menu(message: Message, state: FSMContext):
     await state.set_state(Menu.point_1)
     await message.answer (text="<b>Меню:</b>\n\nЗадания ОГЭ по математике.📝"
             "\n\nЗадания ЕГЭ по математике.👨🏻‍🎓"
-            "\n\nЗадания ЕГЭ по профильной математике.🤓", reply_markup=menu_points, parse_mode="html")
+            "\n\nЗадания ЕГЭ по профильной математике.🤓\n\nНе знаешь ответ? Возможно тебе поможет кубик🎲", reply_markup=menu_points, parse_mode="html")
 
 
 @router.message(Menu.point_1)
@@ -30,6 +30,8 @@ async def menu_actions(message: Message, state: FSMContext):
         await message.answer(text="<b>Задания ЕГЭ по математике.</b>\nНажмите ниже чтобы перейти на сайт", reply_markup= ege, parse_mode="html")
     elif message.text.lower() == "задания егэ по профильной математике.🤓":
         await message.answer(text="<b>Задания ЕГЭ по профильной математике.</b>\nНажмите ниже чтобы перейти на сайт", reply_markup= ege_prof, parse_mode="html")
+    elif message.text.lower() == "кубик рандома🎲":
+        await  message.answer_dice()
     elif message.text == "/about":
         photo = await get_photo('city')
         await message.answer_photo(photo=photo)
@@ -75,7 +77,8 @@ async def help_actions(message: Message, state: FSMContext):
         await state.set_state(Menu.point_1)
         await message.answer(text="<b>Меню:</b>\n\nЗадания ОГЭ по математике.📝"
                                   "\n\nЗадания ЕГЭ по математике.👨🏻‍🎓"
-                                  "\n\nЗадания ЕГЭ по профильной математике.🤓", reply_markup=menu_points,
+                                  "\n\nЗадания ЕГЭ по профильной математике.🤓"
+                                  "\n\nНе знаешь ответ? Возможно тебе поможет кубик🎲", reply_markup=menu_points,
                              parse_mode="html")
     elif message.text.lower() == "информация о боте❗" or message.text == "/about":
         await message.answer(text="информация о боте❗", reply_markup=link_keyboard)

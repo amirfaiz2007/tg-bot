@@ -10,6 +10,7 @@ menu_button = ReplyKeyboardMarkup(
     ]
 )
 
+
 link_keyboard = InlineKeyboardMarkup(
     inline_keyboard=[
         [InlineKeyboardButton(text="Телеграм", url="https://t.me/amirka000")],
@@ -22,10 +23,10 @@ menu_points = ReplyKeyboardMarkup(
     keyboard=[
         [KeyboardButton(text="Задания ОГЭ по математике.📝")],
         [KeyboardButton(text="Задания ЕГЭ по математике.👨🏻‍🎓")],
-        [KeyboardButton(text="Задания ЕГЭ по профильной математике.🤓")]
+        [KeyboardButton(text="Задания ЕГЭ по профильной математике.🤓")],
+        [KeyboardButton(text="кубик рандома🎲")]
     ]
 )
-
 help_points = ReplyKeyboardMarkup(
     keyboard=[
         [KeyboardButton(text="главное меню бота♾️")],
