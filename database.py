@@ -27,3 +27,9 @@ async def edit_profile(id, name, age, phone):
 # db.commit()
 # cur.execute(f'UPDATE person SET name = ?, age =?, phone =? WHERE user_id ==?',(name, age, phone, id))
 # db.commit()
+
+async def check_profile(id):
+    user = cur.execute(f'SELECT 1 FROM person where user_id == {id}').fetchone()
+    if not user:
+        return False
+    return True

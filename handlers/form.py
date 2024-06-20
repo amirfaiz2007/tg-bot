@@ -48,7 +48,7 @@ async def name(message: Message, state: FSMContext):
 @router.message(Form.number)
 async def name(message: Message, state: FSMContext):
     t = message.text
-    if (t [:1] == "8" or t [:2] == "+7") and len(t) == 11:
+    if (t [:1] == "8" and len(t) ==11) or (t [:2] == "+7" and len(t) == 12):
         await state.update_data(phone=message.text)
         await state.set_state(Menu.menu)
         number = message.text
