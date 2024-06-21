@@ -2,6 +2,7 @@ from aiogram.filters import Command
 from aiogram.types import Message, InputMediaPhoto
 
 from erg import get_photo
+from handlers.admin import admin
 from markup import menu_points, oge, ege, ege_prof, help_points, link_keyboard
 from aiogram import Router
 from aiogram.fsm.context import FSMContext
@@ -51,7 +52,7 @@ async def menu_actions(message: Message, state: FSMContext):
 @router.message(Menu.point_2)
 async def help(message: Message, state: FSMContext):
     await state.set_state(Menu.point_3)
-    text = "запустить бота▶️\nпоказать доступные команды🆘\nинформация о боте❗\nглавное меню бота♾️"
+    text = "запустить бота▶️\nпоказать доступные команды🆘\nинформация о боте❗\nглавное меню бота♾️\ncвязь с администрацией бота👨🏽‍💻"
     photo = await get_photo('lake')
     await message.answer_photo(photo=photo)
     await message.answer(text=text, reply_markup=help_points, parse_mode="html")
@@ -83,12 +84,24 @@ async def help_actions(message: Message, state: FSMContext):
                              parse_mode="html")
     elif message.text.lower() == "информация о боте❗" or message.text == "/about":
         await message.answer(text="информация о боте❗", reply_markup=link_keyboard)
+
+    elif message.text.lower() == "связь с администрацией бота👨🏽‍💻":
+        await message.answer("Напишите свой отзыв или вашу проблему в скором времени мы вам ответим")
+        await state.set_state(Menu.message)
     else:
         await message.answer(text="Извините я вас не понимаю выберите кнопку")
 
 
 
 
+@router.message(Menu.message)
+async def to_admin(message: Message, state:FSMContext):
+    await admin(message.text)
+    await message.answer(text="Спасибо за отзыв, ваше сообщение отправлено администрации бота "
+                              "в скором времени они ответят на ваш запрос.")
+    text = "запустить бота▶️\nпоказать доступные команды🆘\nинформация о боте❗\nглавное меню бота♾️\ncвязь с администрацией бота👨🏽‍💻"
+    await message.answer(text=text)
+    await state.set_state(Menu.point_3)
 
 
 

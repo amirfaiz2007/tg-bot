@@ -15,3 +15,4 @@ async def help(message: Message):
     await message.answer(text=text)
     await message.delete()
 
+

@@ -12,4 +12,4 @@ class Menu(StatesGroup):
     point_1 = State()
     point_2 = State()
     point_3 = State()
-
+    message = State()

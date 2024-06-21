@@ -31,7 +31,8 @@ help_points = ReplyKeyboardMarkup(
     keyboard=[
         [KeyboardButton(text="главное меню бота♾️")],
         [KeyboardButton(text="информация о боте❗")],
-        [KeyboardButton(text="запустить бота заново▶️")]
+        [KeyboardButton(text="запустить бота заново▶️")],
+        [KeyboardButton(text="связь с администрацией бота👨🏽‍💻")]
     ]
 )
 
